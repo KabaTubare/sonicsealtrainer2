@@ -1,0 +1,48 @@
+# config/model/sonicseal/sonicseal.yaml
+defaults:
+  - _self_
+  - dset: default
+  - solver@solver: sonicseal
+  - model@model: sonicseal
+
+device: cpu  # Change to 'cuda' if you have a GPU available
+dtype: float32
+autocast: false
+
+audioseal:
+  autoencoder: seanet
+  sample_rate: 16000
+  channels: 1
+  nbits: 256  # Number of bits for the watermark (aligned with watermark section)
+
+seanet:
+  dimension: 128
+  channels: 1
+  causal: false
+  n_filters: 32
+  n_residual_layers: 1
+  ratios: [8, 5, 4, 2]
+  activation: ELU
+  activation_params: { "alpha": 1. }
+  norm: weight_norm
+  norm_params: {}
+  kernel_size: 7
+  residual_kernel_size: 3
+  last_kernel_size: 7
+  dilation_base: 2
+  pad_mode: constant
+  true_skip: true
+  compress: 2
+  lstm: 2
+  disable_norm_outer_blocks: 0
+  decoder:
+    trim_right_ratio: 1.0
+    final_activation: null
+    final_activation_params: null
+  encoder: {}
+
+detector: 
+  output_dim: 32  # output channels of detector upsampling
+
+dora:
+  dir: /Users/rex/SonicSealTrainer2/outputs

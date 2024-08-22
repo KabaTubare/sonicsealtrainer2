@@ -1,0 +1,5 @@
+dset:
+  train:
+    manifest: /Users/rex/SonicSealTrainer2/data/pl_manifest.jsonl.gz
+    sample_rate: 16000
+    num_workers: 4
